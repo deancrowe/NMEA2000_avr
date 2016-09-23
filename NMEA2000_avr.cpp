@@ -47,7 +47,7 @@ bool tNMEA2000_avr::CANSendFrame(unsigned long id, unsigned char len, const unsi
     output.extended=true;
     output.id = id;
     output.length = len;
-    for (int i=0; i<len && i<8; i++) output.data.bytes[i]=buf[i];
+    for (unsigned char i=0; i<len && i<8; i++) output.data.bytes[i]=buf[i];
     
     do {
       if (TryCount>0) delay(3);
@@ -66,11 +66,11 @@ bool tNMEA2000_avr::CANOpen() {
   //or standard frames
   int filter;
   //extended
-  for (filter = 0; filter < 3; filter++) {
+  for (filter = 0; filter < 5; filter++) {
   	Can0.setRXFilter(filter, 0, 0, true);
   }  
   //standard
-  for (int filter = 3; filter < 7; filter++) {
+  for (int filter = 5; filter < 7; filter++) {
   	Can0.setRXFilter(filter, 0, 0, false);
   }  
     return true;
